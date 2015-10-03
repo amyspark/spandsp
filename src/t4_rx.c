@@ -29,6 +29,11 @@
 #include "config.h"
 #endif
 
+#if !defined(_MSC_VER) && defined(_WIN32)
+/* Avoid including winsock2.h */
+extern int __stdcall gethostname(char * name, int namelen);
+#endif
+
 #include <stdlib.h>
 #include <inttypes.h>
 #include <limits.h>
