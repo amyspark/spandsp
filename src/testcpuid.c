@@ -35,6 +35,8 @@
 /* Make this file just disappear if we are not on an x86 machine */
 #if defined(__i386__) //  ||  defined(__x86_64__)
 
+#if defined(TESTBED)
+
 enum
 {
     X86_EFLAGS_CF   = 0x00000001,   /* Carry Flag */
@@ -187,7 +189,6 @@ int has_3DNow(void)
 }
 /*- End of function --------------------------------------------------------*/
 
-#if defined(TESTBED)
 int main(int argc, char *argv[])
 {
     int result;
