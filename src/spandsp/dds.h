@@ -66,12 +66,6 @@ SPAN_DECLARE(int16_t) dds_scaling_dbm0(float level);
 */
 SPAN_DECLARE(int16_t) dds_scaling_dbov(float level);
 
-/*! \brief Find the amplitude for a particular phase.
-    \param phase The desired phase 32 bit phase.
-    \return The signal amplitude.
-*/
-SPAN_DECLARE(int16_t) dds_lookup(uint32_t phase);
-
 /*! \brief Find the amplitude for a particular phase offset from an accumulated phase.
     \param phase_acc The accumulated phase.
     \param phase_offset The phase offset.
@@ -151,15 +145,6 @@ SPAN_DECLARE(complexi16_t) dds_complexi16(uint32_t *phase_acc, int32_t phase_rat
     \return The complex signal amplitude, between (-32767, -32767) and (32767, 32767).
 */
 SPAN_DECLARE(complexi16_t) dds_complexi16_mod(uint32_t *phase_acc, int32_t phase_rate, int16_t scale, int32_t phase);
-
-/*! \brief Generate a complex 32 bit integer tone sample, with modulation.
-    \param phase_acc A pointer to a phase accumulator value.
-    \param phase_rate The phase increment to be applied.
-    \param scale The scaling factor.
-    \param phase The phase offset.
-    \return The complex signal amplitude, between (-32767, -32767) and (32767, 32767).
-*/
-SPAN_DECLARE(complexi32_t) dds_complexi32_mod(uint32_t *phase_acc, int32_t phase_rate, int16_t scale, int32_t phase);
 
 /*! \brief Generate a complex 32 bit integer tone sample.
     \param phase_acc A pointer to a phase accumulator value.
