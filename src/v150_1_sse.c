@@ -41,6 +41,7 @@
 #endif
 
 #define SPANDSP_FULLY_DEFINE_SPRT_STATE_T
+#undef SPANDSP_USE_EXPORT_CAPABILITY
 
 #include "spandsp/telephony.h"
 #include "spandsp/alloc.h"

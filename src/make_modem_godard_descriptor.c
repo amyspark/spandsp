@@ -26,6 +26,10 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <inttypes.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -35,8 +39,10 @@
 #include <fcntl.h>
 #include <math.h>
 #include <stdbool.h>
-#if defined(__sunos)  ||  defined(__solaris)  ||  defined(__sun)
+#ifdef HAVE_GETOPT_H
 #include <getopt.h>
+#else
+extern int   optind;
 #endif
 
 #include "spandsp/telephony.h"

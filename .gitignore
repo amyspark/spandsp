@@ -28,3 +28,8 @@ src/v27ter_tx_2400_floating_rrc.h
 src/v27ter_tx_4800_floating_rrc.h
 src/v29rx_floating_rrc.h
 src/v29tx_floating_rrc.h
+
+.cache
+build
+b
+.vscode
