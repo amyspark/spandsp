@@ -136,6 +136,7 @@ conf.set('HAVE_OPEN_MEMSTREAM', cc.has_function('open_memstream', dependencies: 
 
 cc.has_function('cos', dependencies: m_dep, required: true)
 
+# Some platforms still seem to lack the basic single precision trig and power related functions.
 symbols = [
     'sinf',
     'cosf',
@@ -153,7 +154,7 @@ symbols = [
 ]
 
 foreach f: symbols
-    conf.set('HAVE_@0@'.format(f.to_upper()), cc.has_function(f, dependencies: m_dep))
+    conf.set('HAVE_@0@'.format(f.to_upper()), cc.has_function(f, prefix: '#include <math.h>', dependencies: m_dep))
 endforeach
 
 c_shared_args = []
@@ -231,26 +232,25 @@ foreach k, v : sets
     endif
 endforeach
 
-tiff_dep = dependency('libtiff-4', required: false)
-
+tiff_dep = dependency('libtiff-4')
 conf.set10('HAVE_LIBTIFF', tiff_dep.found())
-if not tiff_dep.found()
-    c_args += cc.get_supported_arguments(['-Wno-return-type'])
-endif
+# if not tiff_dep.found()
+#     c_args += cc.get_supported_arguments(['-Wno-return-type'])
+# endif
 
-if cc.has_function('TIFFCreateCustomDirectory', dependencies: tiff_dep)
-    if cc.has_header('tif_dir.h', dependencies: tiff_dep)
-        conf.set('SPANDSP_SUPPORT_TIFF_FX', 1)
-        inserts.set('SPANDSP_SUPPORT_TIFF_FX', '#define SPANDSP_SUPPORT_TIFF_FX 1')
-    else
-        inserts.set('SPANDSP_SUPPORT_TIFF_FX', '#undef SPANDSP_SUPPORT_TIFF_FX')
-    endif
-    conf.set('SPANDSP_SUPPORT_T43', 1)
-    inserts.set('SPANDSP_SUPPORT_T43', '#define SPANDSP_SUPPORT_T43 1')
-else
-    inserts.set('SPANDSP_SUPPORT_TIFF_FX', '#undef SPANDSP_SUPPORT_TIFF_FX')
-    inserts.set('SPANDSP_SUPPORT_T43', '#undef SPANDSP_SUPPORT_T43')
-endif
+# if cc.has_function('TIFFCreateCustomDirectory', dependencies: tiff_dep)
+#     if cc.has_header('tif_dir.h', dependencies: tiff_dep)
+#         conf.set('SPANDSP_SUPPORT_TIFF_FX', 1)
+#         inserts.set('SPANDSP_SUPPORT_TIFF_FX', '#define SPANDSP_SUPPORT_TIFF_FX 1')
+#     else
+#         inserts.set('SPANDSP_SUPPORT_TIFF_FX', '#undef SPANDSP_SUPPORT_TIFF_FX')
+#     endif
+#     conf.set('SPANDSP_SUPPORT_T43', 1)
+#     inserts.set('SPANDSP_SUPPORT_T43', '#define SPANDSP_SUPPORT_T43 1')
+# else
+#     inserts.set('SPANDSP_SUPPORT_TIFF_FX', '#undef SPANDSP_SUPPORT_TIFF_FX')
+#     inserts.set('SPANDSP_SUPPORT_T43', '#undef SPANDSP_SUPPORT_T43')
+# endif
 
 jpeg_dep = dependency('libjpeg')
 
